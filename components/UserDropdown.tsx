@@ -53,7 +53,7 @@ const UserDropdown = () => {
                     <LogOut className={"mr-2 h-4 w-4 hidden sm:block"}/>
                     Logout
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className={"hidden sm: block bg-gray-600"}/>
+                <DropdownMenuSeparator className={"hidden sm:block bg-gray-600"}/>
                 <nav className={"sm:hidden"}>
                     <NavItems />
                 </nav>
