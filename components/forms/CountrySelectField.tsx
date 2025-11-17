@@ -144,5 +144,3 @@ export const CountrySelectField = ({
         </div>
     );
 };
-
-export default CountrySelectField;

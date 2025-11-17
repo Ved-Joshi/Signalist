@@ -6,8 +6,7 @@ import {headers} from "next/headers";
 
 export const signUpWithEmail = async ({ email, password, fullName, country, investmentGoals, riskTolerance, preferredIndustry }: SignUpFormData) => {
     try {
-        // Pass headers() so BetterAuth can set cookies on the response (required in Server Actions)
-        const response = await auth.api.signUpEmail({ body: { email, password, name: fullName }, headers: await headers() })
+        const response = await auth.api.signUpEmail({ body: { email, password, name: fullName } })
 
         if(response) {
             await inngest.send({
@@ -17,21 +16,23 @@ export const signUpWithEmail = async ({ email, password, fullName, country, inve
         }
 
         return { success: true, data: response }
-    } catch (e) {
-        console.log('Sign up failed', e)
-        return { success: false, error: 'Sign up failed' }
+    } catch (e: any) {
+        // Surface Better Auth / API errors more clearly in logs and response
+        console.error('Sign up failed', e)
+        const message = e?.message || (typeof e === 'string' ? e : 'Sign up failed')
+        return { success: false, error: message }
     }
 }
 
 export const signInWithEmail = async ({ email, password }: SignInFormData) => {
     try {
-        // Pass headers() so BetterAuth can set cookies on the response (required in Server Actions)
-        const response = await auth.api.signInEmail({ body: { email, password }, headers: await headers() })
+        const response = await auth.api.signInEmail({ body: { email, password } })
 
         return { success: true, data: response }
-    } catch (e) {
-        console.log('Sign in failed', e)
-        return { success: false, error: 'Sign in failed' }
+    } catch (e: any) {
+        console.error('Sign in failed', e)
+        const message = e?.message || (typeof e === 'string' ? e : 'Sign in failed')
+        return { success: false, error: message }
     }
 }
 
