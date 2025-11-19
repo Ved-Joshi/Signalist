@@ -302,7 +302,20 @@
         @apply text-xl md:text-2xl font-bold text-gray-100;
     }
     .watchlist-table {
-        @apply !relative overflow-hidden !w-full bg-gray-800 border !border-gray-600 !rounded-lg;
+        /* Make the table 75% of the viewport width and hide any scrollbars */
+        @apply !relative overflow-hidden bg-gray-800 border !border-gray-600 !rounded-lg;
+        width: 75vw; /* 75% of the screen width */
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto; /* center the table */
+    }
+
+    /* Responsive fallback: use full width on smaller screens */
+    @media (max-width: 1024px) {
+        .watchlist-table {
+            width: 100%;
+            max-width: 100%;
+        }
     }
     .table-header-row {
         @apply text-gray-400 font-medium bg-gray-700 border-b border-gray-600 hover:bg-gray-700;
